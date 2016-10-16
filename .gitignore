@@ -45,3 +45,9 @@ doc/
 # WebPack Modules / NodeJS Modules
 */node_modules
 data/ej_webpack/node_modules/
+
+#github.com / Golang
+*/github.com
+*/golang.org
+*/git.eclipse.org
+

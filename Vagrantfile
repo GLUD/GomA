@@ -39,23 +39,48 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-   config.vm.synced_folder "src", "/vagrant/src"
+   config.vm.synced_folder ".", "/vagrant", disabled: true
+   config.vm.synced_folder "src", "/home/vagrant/src"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+   config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
-  # end
+  # vb.customize ["modifyvm", :id, "--uart1", "0x3F8", 4]
+  # vb.customize ["modifyvm", :id, "--uartmode1", "server", "/tmp/my_tty"]
+    vb.customize ["modifyvm", :id, "--usb", "on"]
+    vb.customize ["modifyvm", :id, "--usbehci", "on"]
+    #vb.customize ['modifyvm', :id, '--usb', 'on']
+    vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'SmartCard', '--vendorid', '0x2a03', '--productid', '0x0043']
+
+    # vb.customize ["controlvm", :id, "usbattach","ysfs:/sys/devices/pci0000:00/0000:00:1d.0/usb2/2-1/2-1.2//device:/dev/vboxusb/002/007"]
+   end
   #
+  #config.vm.provider :vmware_fusion do |v|
+   # v.vmx["usb.autoConnect.device0"]  = "0x2a03:0x0043"
+   # v.vmx["usb.autoConnect.device1"]  = "..."    # for another device
+  #end
   # View the documentation for the provider you are using for more
   # information on available options.
-
+  
+  #Vagrant::Config.run do |config|
+  # Map COM1 port in virtual machine to 1024 port on the host
+  # config.serial.forward_com1 = 1024
+  #
+  # Map COM2 port in virtual machine to 1025 port on the host
+  #  config.serial.forward_com2 = 1025
+  #
+  # Override sockets path
+  # Default: ~/.vagrant.d/serial
+  # config.serial.sockets_path = "/path/to/sockets/dir"
+  # end
+  
   # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
   # such as FTP and Heroku are also available. See the documentation at
   # https://docs.vagrantup.com/v2/push/atlas.html for more information.
