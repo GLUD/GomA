@@ -1,0 +1,10 @@
+Estado Actual Proyecto GomA:
+
+A traves de este semestre y a pesar de las dificultades
+y cambios, se avanzo significativamente en el proyecto.
+Así, se comprobo la utilidad del framework Gobot para
+proyectos de IoT, primeramente en hardware arduino. Tal
+API RESTfFul es una integracion de Go+React.js.
+
+Se espera continuar con esta iniciativa el un proximo momento.
+
